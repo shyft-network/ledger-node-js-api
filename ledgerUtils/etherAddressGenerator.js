@@ -13,7 +13,6 @@ ledger
 //        console.log(result);
     
         getEthereumAddress(eth, 0, numAddressesToGenerate);
-
     })
 	.catch(function(reason) {
 		console.log('An error occured: ', reason);
