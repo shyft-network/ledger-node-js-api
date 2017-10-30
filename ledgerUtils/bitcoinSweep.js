@@ -1,3 +1,5 @@
+var bitcoin = require('bitcoinjs-lib');
+
 var numAddressesToGenerate = 2;
 
 const ledger = require('../src');
