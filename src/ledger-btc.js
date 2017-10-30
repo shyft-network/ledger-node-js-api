@@ -75,6 +75,9 @@ LedgerBtc.prototype.getTrustedInputRaw_async = function(firstRound, indexLookup,
 
 LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction) {
 	var currentObject = this;
+    
+    console.log("indexLookup :: " + indexLookup + " :: transaction :: " + transaction);
+
 	var processScriptBlocks = function(script, sequence) {
 		var scriptBlocks = [];
 		var offset = 0;
@@ -101,6 +104,7 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction) {
 			transaction['inputs'], 
 			function (input) {
 				data = Buffer.concat([input['prevout'], currentObject.createVarint(input['script'].length)]);   
+                console.log("found input data :: " + data);
 				return currentObject.getTrustedInputRaw_async(false, undefined, data).then(function (result) {
 					// iteration (eachSeries) ended
 					// TODO notify progress
@@ -128,6 +132,7 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction) {
             return currentObject.getTrustedInputRaw_async(false, undefined, data)
         })
 	}
+    
 	var data = Buffer.concat([transaction['version'], currentObject.createVarint(transaction['inputs'].length)]);
 	return currentObject.getTrustedInputRaw_async(true, indexLookup, data)
         .then(processInputs)
