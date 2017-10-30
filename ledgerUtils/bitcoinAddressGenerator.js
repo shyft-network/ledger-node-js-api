@@ -22,7 +22,7 @@ ledger
 var allAddresses = [];
 
 function getBitcoinAddress(btc, addressIndex, totalAddresses) {
-    btc.getWalletPublicKey_async("44'/60'/0'/"+addressIndex).then(
+    btc.getWalletPublicKey_async("44'/0'/0'/"+addressIndex).then(
          function(result) {
              console.log(result);
              var bitcoinAddress = result['bitcoinAddress'];
