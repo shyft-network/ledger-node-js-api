@@ -21,6 +21,7 @@ ledger
 var allAddresses = [];
 
 function getEthereumAddress(eth, addressIndex, totalAddresses) {
+    console.log("44'/60'/0'/" + addressIndex);
     eth.getAddress_async("44'/60'/0'/" + addressIndex).then(
          function(result) {
              //console.log(result);
