@@ -610,10 +610,15 @@ LedgerBtc.prototype.splitTransaction = function(transaction) {
 	var varint = this.getVarint(transaction, offset);
 	var numberInputs = varint[0];
 	offset += varint[1];
+    
+    console.log("numberInputs :: " + numberInputs);
+    
 	for (var i=0; i<numberInputs; i++) {
 		var input = {};
 		input['prevout'] = transaction.slice(offset, offset + 36);
-		offset += 36;
+        console.log(i + " :: input['prevout'] :: " + input['prevout']);
+        
+        offset += 36;
 		varint = this.getVarint(transaction, offset);
 		offset += varint[1];
 		input['script'] = transaction.slice(offset, offset + varint[0]);
@@ -624,7 +629,9 @@ LedgerBtc.prototype.splitTransaction = function(transaction) {
 	}		
 	varint = this.getVarint(transaction, offset);
 	var numberOutputs = varint[0];
-	offset += varint[1];
+    console.log("numberOutputs :: " + numberOutputs);
+
+    offset += varint[1];
 	for (var i=0; i<numberOutputs; i++) {
 		var output = {};
 		output['amount'] = transaction.slice(offset, offset + 8);

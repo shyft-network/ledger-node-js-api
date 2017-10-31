@@ -89,9 +89,12 @@ function init() {
             // [payee's address, amount in satoshis]
             tx.addOutput(targetAddress, totalValue - miningFee);
 
+            console.log("tx :: " + JSON.stringify(tx));
+            
             var serializedUnsignedTX = tx.buildIncomplete().toHex();
             curAddrDict.unsignedTX.push(serializedUnsignedTX);
 
+            console.log("serializedUnsignedTX :: " + serializedUnsignedTX);
 
            
            
@@ -99,9 +102,6 @@ function init() {
             
            
            //own build //0100000001b57c546275e81d17b575ea2208e405e65bd8f815e1d4c19856873b1cd6dd93a90000000000ffffffff0160010100000000001976a914319060d35d322bba55b78ed7a3b05303371fd9af88ac00000000
-
-            console.log("tx :: " + JSON.stringify(tx));
-            console.log("serializedUnsignedTX :: " + serializedUnsignedTX);
         }
     }
     
@@ -126,17 +126,36 @@ function init() {
 function signAddress(btc, curAddressIndex, totalAddresses) {
     var curAddrDict = database[curAddressIndex];
     
+    //@note: reference number.
+    var serialStr = "01000000014ea60aeac5252c14291d428915bd7ccd1bfc4af009f4d4dc57ae597ed0420b71010000008a47304402201f36a12c240dbf9e566bc04321050b1984cd6eaf6caee8f02bb0bfec08e3354b022012ee2aeadcbbfd1e92959f57c15c1c6debb757b798451b104665aa3010569b49014104090b15bde569386734abf2a2b99f9ca6a50656627e77de663ca7325702769986cf26cc9dd7fdea0af432c8e2becc867c932e1b9dd742f2a108997c2252e2bdebffffffff0281b72e00000000001976a91472a5d75c8d2d0565b656a5232703b167d50d5a2b88aca0860100000000001976a9144533f5fb9b4817f713c48f0bfe96b9f50c476c9b88ac00000000";
+    
+    var tx = bitcoin.Transaction.fromHex(serialStr);
+    
+    console.log("build tx :: " + JSON.stringify(tx));
+    
+//    btc.displayTransactionDebug(serialStr);
+    
+    
     console.log(curAddrDict.account_utxos[0].tx_hash);
     
-    var splitTransaction = btc.splitTransaction(curAddrDict.account_utxos[0].tx_hash);
-    console.log("adding input #" + j + " :: splitTransaction :: " + splitTransaction);
+    
+    
+//    var splitTransaction = btc.splitTransaction(curAddrDict.unsignedTX[0]);
 
-    return;
+//    console.log("adding input #" + 0 + " :: splitTransaction :: " + JSON.stringify(splitTransaction));
+    
+    //    var splitTransaction = btc.splitTransaction("01000000014ea60aeac5252c14291d428915bd7ccd1bfc4af009f4d4dc57ae597ed0420b71010000008a47304402201f36a12c240dbf9e566bc04321050b1984cd6eaf6caee8f02bb0bfec08e3354b022012ee2aeadcbbfd1e92959f57c15c1c6debb757b798451b104665aa3010569b49014104090b15bde569386734abf2a2b99f9ca6a50656627e77de663ca7325702769986cf26cc9dd7fdea0af432c8e2becc867c932e1b9dd742f2a108997c2252e2bdebffffffff0281b72e00000000001976a91472a5d75c8d2d0565b656a5232703b167d50d5a2b88aca0860100000000001976a9144533f5fb9b4817f713c48f0bfe96b9f50c476c9b88ac00000000");
+    var txSplit = bitcoin.Transaction.fromHex(curAddrDict.unsignedTX[0]);
+
+    console.log("txSplit :: " + JSON.stringify(txSplit));
+
+//    return;
     
     
     
     var curUnsignedTx = curAddrDict.unsignedTX[0];
     
+//    var tx1 = btc.splitTransaction(serialStr);
     var tx1 = btc.splitTransaction(curUnsignedTx);
     var outputScript = btc.serializeTransactionOutputs(tx1).toString('hex');
 
@@ -153,6 +172,10 @@ function signAddress(btc, curAddressIndex, totalAddresses) {
     }
     
     return;
+    
+    
+    
+    
     
     var allTransactions = [];
 
@@ -182,8 +205,11 @@ function signAddress(btc, curAddressIndex, totalAddresses) {
 
         serializedOutputScripts += outputScript;
     }
-
-    var allKeySets = ["44'/0'/0'/" + curAddressIndex];
+//    "44'/0'/0'/"+addressIndex
+    
+    
+//    "0'/0/0"
+    var allKeySets = ["0'/0/0"];//["0'/0/0" + curAddressIndex];
 
 //    0140850000000000001976a914319060d35d322bba55b78ed7a3b05303371fd9af88ac
 //    01905f0100000000001976a91472a5d75c8d2d0565b656a5232703b167d50d5a2b88ac
