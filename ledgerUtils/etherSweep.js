@@ -47,17 +47,17 @@ function init() {
     }
 
     
-    var rawTx = {"nonce":"0x00","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0x0e4ca84C8B7B08b44803323d16fb43E83095fEA1","value":"0x0a62abd9cb1000","data":"","chainId":1,"v":"0x26","r":"0xd2ae8d8d4012a595a2e29e3a45eb504105e79a1567ebe33a2aea4e2748ed471c","s":"0x5e502aa54f6562370d7164bc21f1e205b4bb80f0359cc90ccac0c5a72030d9bb"};
-
-    //var rawTx =    {"nonce":"0x01","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0xd202e8A4a963a62674CAA98f3AB61d1E06136420","value":"0x03b2e4a3c4c000","data":"","chainId":1,"v":"0x25","r":"0xaab393f72cd61513b9eef4dae10c325023317c5ae8e9196cef0674af3b60992b","s":"0x737b1ba1aa15ddf7879248ab07b0b1275e7acb978f7dcb86900e6916593b070f"}
-
-    //var rawTx =           {"nonce":"0x01","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0xd202e8A4a963a62674CAA98f3AB61d1E06136420","value":"0x0468cac4b94000","data":"","chainId":1,"v":"0x26","r":"0x3bb0d27cb32046ba3a4adad86f594db50a09a2a50830ee7f6fb262875b23c63c","s":"0x3e00dcde6310f1c60781eefcae6321115f3ce5873dd8651e5ec33a2e67d9a7c5"}
-
-    var tx = new EthereumTX(rawTx);
-    var isValid = tx.verifySignature();
-    
-    console.log("isValid :: " + isValid);
-    return;
+//    var rawTx = {"nonce":"0x00","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0x0e4ca84C8B7B08b44803323d16fb43E83095fEA1","value":"0x0a62abd9cb1000","data":"","chainId":1,"v":"0x26","r":"0xd2ae8d8d4012a595a2e29e3a45eb504105e79a1567ebe33a2aea4e2748ed471c","s":"0x5e502aa54f6562370d7164bc21f1e205b4bb80f0359cc90ccac0c5a72030d9bb"};
+//
+//    //var rawTx =    {"nonce":"0x01","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0xd202e8A4a963a62674CAA98f3AB61d1E06136420","value":"0x03b2e4a3c4c000","data":"","chainId":1,"v":"0x25","r":"0xaab393f72cd61513b9eef4dae10c325023317c5ae8e9196cef0674af3b60992b","s":"0x737b1ba1aa15ddf7879248ab07b0b1275e7acb978f7dcb86900e6916593b070f"}
+//
+//    //var rawTx =           {"nonce":"0x01","gasPrice":"0x04e3b29200","gasLimit":"0x5208","to":"0xd202e8A4a963a62674CAA98f3AB61d1E06136420","value":"0x0468cac4b94000","data":"","chainId":1,"v":"0x26","r":"0x3bb0d27cb32046ba3a4adad86f594db50a09a2a50830ee7f6fb262875b23c63c","s":"0x3e00dcde6310f1c60781eefcae6321115f3ce5873dd8651e5ec33a2e67d9a7c5"}
+//
+//    var tx = new EthereumTX(rawTx);
+//    var isValid = tx.verifySignature();
+//    
+//    console.log("isValid :: " + isValid);
+//    return;
 
     //{"jsonrpc":"2.0","id":1,"result":{"blockHash":"0x949f40920a86f281daccbe8e30dd60a366b22ff270647815f6bfc0402ff38e42","blockNumber":"0xce3","from":"0x047347096a6dc73f8626afb520c383a02efda314","gas":"0x15f90","gasPrice":"0x4a817c800","hash":"0x70a7552c8ab8d2621c80c8a1c149012d10a823c4619cc82235cbdfad0553310b","input":"0x021df6f4000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000","nonce":"0x178","to":"0xe2412bb63a0a25d7b8973fc6764fd246ebe62c7a","transactionIndex":"0x0","value":"0x0","v":"0x1b","r":"0xd693b532a80fed6392b428604171fb32fdbf953728a3a7ecc7d4062b1652c042","s":"0x24e9c602ac800b983b035700a14b23f78a253ab762deab5dc27e3555a750b354"}}
 //
@@ -197,8 +197,8 @@ function signAddress(eth, curAddressIndex, totalAddresses) {
 
     console.log("44'/60'/0'/" + curAddrDict.account_id);
     console.log("[signing address #" + curAddressIndex + " ]");
-//    eth.signTransaction_async("44'/60'/0'/" + curAddrDict.account_id,
-    eth.signTransaction_async("44'/60'/0'/0'/0" + curAddrDict.account_id, curAddrDict.unsignedTX).then(function (result) {
+    eth.signTransaction_async("44'/60'/0'/" + curAddrDict.account_id,
+        curAddrDict.unsignedTX).then(function (result) {
         console.log(result);
 
         //        const txParams = {
